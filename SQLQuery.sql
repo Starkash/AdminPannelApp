@@ -1,4 +1,5 @@
-﻿use first_db
+﻿create database first_db
+use first_db
 
 Create Table Users (Id int primary key identity,
 FirstName varchar(max),
@@ -21,7 +22,7 @@ select * from Users
 --SendTime datetime
 --)
 
-Select * from VerifyAccount;
+Select * from VerifyAccounts;
 
 Create Table VerifyAccounts (Id int primary key identity,
 Otp varchar(101),

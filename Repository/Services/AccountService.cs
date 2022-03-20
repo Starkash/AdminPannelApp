@@ -50,7 +50,7 @@ namespace AdminPannelApp.Repository.Services
             {
                 return SignUpEnum.EmailExist;
             }
-            else 
+            else
             {
                 var user = new Users()
                 {
@@ -69,46 +69,44 @@ namespace AdminPannelApp.Repository.Services
                     UserId = model.Email,
                     SendTime = DateTime.Now
                 };
-                dBContex.VerifyAccounts.Add(VAccount); 
+                dBContex.VerifyAccounts.Add(VAccount);
                 dBContex.SaveChanges();
                 return SignUpEnum.Success;
             }
-<<<<<<< HEAD
-            
-            
-                return SignUpEnum.Failure;
 
+         
 
-            
-=======
             return SignUpEnum.Failure;
->>>>>>> 2a5d3af (Generate Otp , Send otp, Verify otp)
+
 
         }
         private void SendMail(string to, string Otp)
         {
-            MailMessage mail = new MailMessage();
-            mail.To.Add(to);
-<<<<<<< HEAD
-            mail.From = new MailAddress("arvindkumarpal700@gmail.com");
-=======
-            mail.From = new MailAddress("mdasifwr@gmail.com");
->>>>>>> 2a5d3af (Generate Otp , Send otp, Verify otp)
-            mail.Subject = "Verify Your Account";
-            string Body = $"Your OTP is <b> {Otp}</b>  <br/>thanks for choosing us.";
-            mail.Body = Body;
-            mail.IsBodyHtml = true;
-            SmtpClient smtp = new SmtpClient();
-            smtp.Host = "smtp.gmail.com";
-            smtp.Port = 587;
-            smtp.UseDefaultCredentials = false;
-<<<<<<< HEAD
-            smtp.Credentials = new System.Net.NetworkCredential("arvindkumarpal700@gmail.com", "Arvind123"); // Enter seders User name and password  
-=======
-            smtp.Credentials = new System.Net.NetworkCredential("mdasifwr@gmail.com", "MAWR##09090"); // Enter seders User name and password  
->>>>>>> 2a5d3af (Generate Otp , Send otp, Verify otp)
-            smtp.EnableSsl = true;
-            smtp.Send(mail);
+            try
+            {
+                MailMessage mail = new MailMessage();
+                mail.To.Add(to);
+
+                mail.From = new MailAddress("arvindkumarpal700@gmail.com");
+
+
+                mail.Subject = "Verify Your Account";
+                string Body = $"Your OTP is <b> {Otp}</b>  <br/>thanks for choosing us.";
+                mail.Body = Body;
+                mail.IsBodyHtml = true;
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new System.Net.NetworkCredential("arvindkumarpal700@gmail.com", "Arvind123"); // Enter seders User name and password 
+                smtp.EnableSsl = true;
+                smtp.Send(mail);
+                
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
         private string GenerateOTP()
         {
@@ -121,9 +119,12 @@ namespace AdminPannelApp.Repository.Services
 
         public bool VerifyAccount(string Otp)
         {
+            //Otp==Acc
+            
             if (dBContex.VerifyAccounts.Any(e => e.Otp == Otp))
             {
                 var Acc = dBContex.VerifyAccounts.SingleOrDefault(e => e.Otp == Otp);
+
                 var User = dBContex.Users.SingleOrDefault(e => e.Email == Acc.UserId);
                 User.IsVerified = true;
                 User.IsActive = true;
@@ -141,8 +142,8 @@ namespace AdminPannelApp.Repository.Services
 
     }
 }
-<<<<<<< HEAD
+
 //https://g.co/allowaccess
-=======
-// https://g.co/allowaccess
->>>>>>> 2a5d3af (Generate Otp , Send otp, Verify otp)
+
+
+
